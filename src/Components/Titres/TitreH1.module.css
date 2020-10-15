@@ -1,0 +1,8 @@
+.policeTitre{
+    font-size: 55px;
+    font-family: 'Abril Fatface', cursive;;
+}
+
+.policeTitre:hover{
+    color: black!important;
+}

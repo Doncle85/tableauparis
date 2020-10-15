@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import Bouton from "../../Components/Bouton/Bouton"
 
 class Paris extends Component {
+    state ={
+        paris : [
+            {id:1, pari: "paris1", createur: "createur1", enjeu: "enjeu1", participants : "participant1"},
+            {id:2, pari: "paris2", createur: "createur2", enjeu: "enjeu2", participants : "participant2"},
+            {id:3, pari: "paris3", createur: "createur3", enjeu: "enjeu3", participants : "participant3"},
+            {id:4, pari: "paris4", createur: "createur4", enjeu: "enjeu4", participants : "participant4"}
+        ]
+    }
     render (){
         return (
             <table className="table text-center">
@@ -15,13 +23,21 @@ class Paris extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Paris 1</td>
-                    <td>Créateur 1</td>
-                    <td>Enjeu 1</td>
-                    <td>4</td>
-                    <td><Bouton typeBtn="btn-danger" click={() => console.log("Supprimer")}>Supprimer</Bouton></td>
-                </tr>
+                {
+                    //la fonction permets de parcourir l ensemble des cases du tableau livres.
+                    this.state.paris.map(pari =>{
+                     // Ne pas oublier le key pour parcourir le tableau
+                       return ( <tr key={pari.id}>
+                                    <td>{pari.pari}</td>
+                                    <td>{pari.createur}</td>
+                                    <td>{pari.enjeu}</td>
+                                    <td>{pari.participants}</td>
+                                    <td><Bouton typeBtn="btn-danger" click={() => console.log("Supprimer")}>Supprimer</Bouton></td>
+                        </tr>
+                       );
+                    })
+                }
+
                 </tbody>
             </table>
         );

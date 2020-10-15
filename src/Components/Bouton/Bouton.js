@@ -1,7 +1,7 @@
 import React from 'react';
 
 const bouton = (props) => {
-   const btnCss = `btn ${props.typeBtn}`//permets de definir une couleur de bouton
+   const btnCss = `btn ${props.typeBtn} ${props.css}`//typeBtn permets de definir une couleur de bouton;css permets que le bouton ajouter prenne toutes la place
    return  <button className={btnCss} onClick={props.click}/*fonction permettant d'activer le bouton*/ >
       {props.children}
    </button>

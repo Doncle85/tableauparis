@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Bouton from "../../Components/Bouton/Bouton"
+import Pari from "../Pari/Pari"
 
 class Paris extends Component {
     state ={
@@ -10,6 +10,25 @@ class Paris extends Component {
             {id:4, pari: "paris4", createur: "createur4", enjeu: "enjeu4", participants : "participant4"}
         ]
     }
+
+    //Fonction qui va permettre de supprimer un pari grace à l'ID du du pari
+    handleSuppressionLivre =(id) => {
+        //permets de récupérer l ID du pari à supprimer grce à la fonction findIndex
+        //p = récupère toutes les cases du tableau
+        //p.id === id = récupére l 'id du tableau et on vérifie qu il est égale à l'id mis en paramètre de la fonction
+        const pariIndexTab = this.state.paris.findIndex(p => {
+            return p.id === id;
+        })
+
+        //Duplication du Tableau
+        const newParis = [...this.state.paris];
+        //splice() est une fonction qui permets de supprimer les éléments d' un tableau
+        newParis.splice(pariIndexTab,1);
+
+        //Fusion de l'ancien tableau et du nouveau
+        this.setState({paris:newParis})
+    }
+
     render (){
         return (
             <table className="table text-center">
@@ -28,11 +47,14 @@ class Paris extends Component {
                     this.state.paris.map(pari =>{
                      // Ne pas oublier le key pour parcourir le tableau
                        return ( <tr key={pari.id}>
-                                    <td>{pari.pari}</td>
-                                    <td>{pari.createur}</td>
-                                    <td>{pari.enjeu}</td>
-                                    <td>{pari.participants}</td>
-                                    <td><Bouton typeBtn="btn-danger" click={() => console.log("Supprimer")}>Supprimer</Bouton></td>
+                            <Pari
+                                pari={pari.pari}
+                                createur={pari.createur}
+                                enjeu={pari.enjeu}
+                                participants={pari.participants}
+                                suppression={() => this.handleSuppressionLivre(pari.id)}
+                                //Récupere la fonction et l id du pari pour pouvoir supprimer une ligne
+                            />
                         </tr>
                        );
                     })

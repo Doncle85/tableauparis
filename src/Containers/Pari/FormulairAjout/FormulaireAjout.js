@@ -46,6 +46,7 @@ class FormulaireAjout extends Component {
                                //onChange={(event) => this.setState({PariSaisi:event.target.value})}
 
                         />
+                        {this.props.errors.pari}
                     </div>
                     <div className="form-group">
                         <label htmlFor="createur">Créateur</label>
@@ -61,6 +62,7 @@ class FormulaireAjout extends Component {
                                //onChange={(event) => this.setState({CréateurSaisi:event.target.value})}
 
                         />
+                        {this.props.errors.participants}
                     </div>
                     <div className="form-group">
                         <label htmlFor="Enjeu">Enjeu</label>
@@ -76,6 +78,7 @@ class FormulaireAjout extends Component {
                                //onChange={(event) => this.setState({EnjeuSaisi:event.target.value})}
 
                         />
+                        {this.props.errors.enjeu}
                     </div>
                     <div className="form-group">
                         <label htmlFor="participants">Participants</label>
@@ -91,6 +94,7 @@ class FormulaireAjout extends Component {
                                //onChange={(event) => this.setState({ParticipantsSaisi:event.target.value})}
 
                         />
+                        {this.props.errors.participants}
                     </div>
                     <Bouton typeBtn="btn-primary" click={this.props.handleSubmit}> Valider</Bouton>
                 </form>
@@ -106,37 +110,23 @@ export default withFormik({
             enjeu:'',
             participants:''
         }),
-        validationSchema : Yup.object().shape({
-            pari : Yup.string()
-                .min(10,'le titre doit avoir plus de 10 caractères')
-                .max(200, 'le titre doit avoir moins de 200 caractères')
-                .required(" pari requis"),
-            createur: Yup.string()
-                .min(3,"l auteur doit avoir plus de 3 caractères")
-                .required("l auteur est requis"),
-            enjeu: Yup.string()
-                .min(5,'l enjeu doit contenir plus de 5 caractères')
-                .required("enjeu obligatoire"),
-            participants: Yup.number()
-                .lessThan(2,'Participants au maximum 2')
-
-        }),
-        // validate: values => {
-        //     const errors = {};
-        //     if(values.titre.length < 3){
-        //         errors.titre ="Le titre doit avoir plus de 3 caractères "
-        //     }
-        //     if(values.titre.length > 15){
-        //         errors.titre ="Le titre doit avoir moins de 15 caractères "
-        //     }
-        //     if(!values.auteur.length < 3){
-        //         errors.auteur ="Le champ auteur est obligatoire "
-        //     }
-        //     return errors;
-        // },
-        handleSubmit:(values, {props}) => {
-            props.validation(values.pari,values.createur,values.enjeu,values.participants)
-            ;
-        }
+    validationSchema : Yup.object().shape({
+        pari : Yup.string()
+            .min(10,'le pari doit avoir plus de 10 caractères')
+            .max(200, 'le pari doit avoir moins de 200 caractères')
+            .required(" pari requis"),
+        createur: Yup.string()
+            .min(3,"l auteur doit avoir plus de 3 caractères")
+            .required("l auteur est requis"),
+        enjeu: Yup.string()
+            .min(5,'l enjeu doit contenir plus de 5 caractères')
+            .required("enjeu obligatoire"),
+        participants: Yup.number()
+            .moreThan(1,'Il faut au moins 1 participant')
+            .lessThan(3,'2 Participants au maximum')
+    }),
+    handleSubmit:(values, {props}) => {
+        props.validation(values.pari,values.createur,values.enjeu,values.participants);
+    }
     }
 )(FormulaireAjout);

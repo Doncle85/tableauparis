@@ -21,14 +21,14 @@ class App extends Component {
         return (
             <div className="container">
                 <TitreH1>Tableau des paris</TitreH1>
-                <Paris></Paris>
+                <Paris ajoutPari={this.state.ajoutPari} fermerAjoutLivre={() => this.setState({ajoutPari:false})}/>
                 <Bouton
                     typeBtn="btn-success"
                     //Récupère la fonction handleClickAjoutPari
                     click={this.handleClickAjoutPari}
                     //si le booléen = false = ajouter, true = fermer ajout
                     css="w-100"> { !this.state.ajoutPari ? "Ajouter" : "Fermer ajout"}
-                    
+
                 </Bouton>
             </div>
         );
